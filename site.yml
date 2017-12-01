@@ -1,0 +1,22 @@
+---
+- name: Installing OCP Standalone Registry in a Single Node
+  hosts: registry
+  tasks:
+    - name: Preparing OCP node for OCR
+      include_role:
+        name: ocp_configure_node
+      vars:
+        node_type: registry
+
+    - name: Installing OpenShift Ansible playbooks
+      yum:
+        name: openshift-ansible
+        state: present
+      delegate_to: localhost
+
+    - include: htpasswd_tasks.yml
+      when: id_provider == 'htpasswd'
+
+    - name: Installing OCR
+      import_playbook: "/usr/share/openshift-ansible/playbooks/byo/config.yml"
+...
