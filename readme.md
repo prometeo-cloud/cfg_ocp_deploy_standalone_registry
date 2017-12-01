@@ -1,9 +1,11 @@
 # cfg_ocp_install_standalone_registry
 
-Deploys an openshift standalone Docker [registry](https://docs.openshift.com/container-platform/3.6/install_config/install/stand_alone_registry.html).
+Deploys an OpenShift standalone Docker [registry](https://docs.openshift.com/container-platform/3.6/install_config/install/stand_alone_registry.html).
 
 
 ## Requirements
+
+Requires the following role(s):
 
 - [ocp_configure_node](https://github.com/prometeo-cloud/ocp_configure_node)
 
@@ -18,7 +20,9 @@ Deploys an openshift standalone Docker [registry](https://docs.openshift.com/con
 
 ```bash
 # install an OCR with httpasswd authentication
-$ ansible-playbook -i inv_htpasswd -key-file='/path/to/private/key' -e '{ "master_default_subdomain":"localhost" }'
+$ ansible-playbook -i inventory/htpasswd \
+    --key-file='/path/to/private/key' \
+    -e '{ "master_default_subdomain":"localhost" }' site.yml
 ```
 
 ### With LDAP authentication
@@ -34,5 +38,7 @@ $ ansible-playbook -i inv_htpasswd -key-file='/path/to/private/key' -e '{ "maste
 
 ```bash
 # install an OCR with ldap authentication
-$ ansible-playbook -i inv_ldap -key-file='/path/to/private/key' -e '{ "master_default_subdomain":"localhost", "ldap_certificate_file":"", "ldap_insecure":"no", "ldap_url":"ldap://www.example.com/ou=users,dc=acme,dc=com?uid" }'
+$ ansible-playbook -i inventory/ldap \
+    --key-file='/path/to/private/key' \
+    -e '{ "master_default_subdomain":"localhost", "ldap_certificate_file":"", "ldap_insecure":"no", "ldap_url":"ldap://www.example.com/ou=users,dc=acme,dc=com?uid" }' site.yml
 ```

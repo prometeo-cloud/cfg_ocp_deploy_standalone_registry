@@ -8,15 +8,19 @@
       vars:
         node_type: registry
 
-    - name: Installing OpenShift Ansible playbooks
-      yum:
-        name: openshift-ansible
-        state: present
+    - name: Cloning OpenShift-Ansible playbooks to the localhost
+      command: git clone https://github.com/openshift/openshift-ansible ./{{ openshift_ansible_version }}
+      delegate_to: localhost
+
+    - name: Checking out branch {{ openshift_ansible_version }}
+      command: git checkout {{ openshift_ansible_version }}
+      args:
+        chdir: openshift-ansible
       delegate_to: localhost
 
     - include: htpasswd_tasks.yml
       when: id_provider == 'htpasswd'
 
     - name: Installing OCR
-      import_playbook: "/usr/share/openshift-ansible/playbooks/byo/config.yml"
+      import_playbook: ./{{ openshift_ansible_version }}/openshift-ansible/playbooks/byo/config.yml
 ...
