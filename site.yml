@@ -9,18 +9,18 @@
         node_type: registry
 
     - name: Cloning OpenShift-Ansible playbooks to the localhost
-      command: git clone https://github.com/openshift/openshift-ansible ./{{ openshift_ansible_version }}
+      command: git clone https://github.com/openshift/openshift-ansible ./openshift-ansible/{{ openshift_ansible_version }}
       delegate_to: localhost
 
     - name: Checking out branch {{ openshift_ansible_version }}
       command: git checkout {{ openshift_ansible_version }}
       args:
-        chdir: openshift-ansible
+        chdir: openshift-ansible/{{ openshift_ansible_version }}
       delegate_to: localhost
 
     - include: htpasswd_tasks.yml
       when: id_provider == 'htpasswd'
 
     - name: Installing OCR
-      import_playbook: ./{{ openshift_ansible_version }}/openshift-ansible/playbooks/byo/config.yml
+      import_playbook: openshift-ansible/{{ openshift_ansible_version }}/playbooks/byo/config.yml
 ...

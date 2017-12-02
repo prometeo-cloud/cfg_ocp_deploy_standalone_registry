@@ -17,6 +17,7 @@ Requires the following role(s):
 | Variable  | Description  | Example | Mandatory |
 |---|---|---|---|
 |**master_default_subdomain**| the master node default subdomain. | myhost.com | yes |
+|**openshift_ansible_version**| OpenShift Ansible playbooks version tag. | release-3.6 | yes |
 
 ```bash
 # install an OCR with httpasswd authentication
@@ -31,6 +32,7 @@ $ ansible-playbook -i inventory/htpasswd \
 | Variable  | Description  | Example | Mandatory |
 |---|---|---|---|
 |**master_default_subdomain**| the master node default subdomain. | myhost.com | yes |
+|**openshift_ansible_version**| OpenShift Ansible playbooks version tag. | release-3.6 | yes |
 | **ldap_hostnames** | The hostname(s) of the LDAP host to be used by the registry | www.ldaphost.com | yes |
 | **ldap_url** | The URL of the LDAP server. |  ldap://www.example.com/ ou=users,dc=acme, dc=com?uid | yes |
 | **ldap_certificate_file** | Certificate bundle to use to validate server certificates for the configured URL. If empty, system trusted roots are used. Only applies if insecure: false. | ldap-ca-bundle.crt (defaults to an empty string)| no |
